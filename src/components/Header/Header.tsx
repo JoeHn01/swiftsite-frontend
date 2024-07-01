@@ -31,7 +31,9 @@ const Header: React.FC<HeaderProps> = () => {
             ))}
           </ul>
         </nav>
-        <button className={styles.headerButton}>Get Started</button>
+        <Link href="/sign-in">
+          <button className={styles.headerButton}>Get Started</button>
+        </Link>
       </div>
     </header>
   );
