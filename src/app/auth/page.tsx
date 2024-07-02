@@ -1,10 +1,10 @@
-import SignUp from "@/components/SignUp/SignUp";
 import styles from "../page.module.css";
+import AuthForm from "@/components/AuthForm/AuthForm";
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <SignUp />
+      <AuthForm />
     </main>
   );
 }
