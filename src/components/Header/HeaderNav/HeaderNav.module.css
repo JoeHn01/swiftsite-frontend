@@ -1,0 +1,43 @@
+.headerNav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.headerNavList {
+  display: flex;
+  list-style: none;
+}
+
+.headerNavItem {
+  margin-right: 20px;
+}
+
+.headerNavButton {
+  text-decoration: none;
+  color: #333;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.headerNavButton:hover {
+  color: #007bff;
+  background-color: #e8f0fe;
+}
+
+@media screen and (max-width: 768px) {
+  .headerNav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerNavItem {
+    margin: 0.5rem 0;
+  }
+}

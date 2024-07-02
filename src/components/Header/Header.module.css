@@ -23,27 +23,6 @@
   cursor: pointer;
 }
 
-.headerNav {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.headerNav li {
-  display: inline-block;
-  margin-right: 20px;
-}
-
-.headerNav Link {
-  text-decoration: none;
-  color: #333;
-  cursor: pointer;
-}
-
-.headerNav Link:hover {
-  color: #007bff;
-}
-
 .headerButton {
   background-color: #007bff;
   color: #fff;
