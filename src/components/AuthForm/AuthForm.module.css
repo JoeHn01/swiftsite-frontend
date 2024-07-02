@@ -55,7 +55,8 @@
   justify-content: center;
   align-self: center;
   padding: 10px 20px;
-  width: 100%;
+  margin-top: 10px;
+  width: 50%;
   background-color: #0070f3;
   color: white;
   text-align: center;
@@ -68,13 +69,6 @@
 
 .authButton:hover {
   background-color: #0069d9;
-}
-
-.authInput:focus + .authLabel,
-.authInput:valid + .authLabel {
-  transform: translateY(-70%);
-  font-size: 12px;
-  color: #333;
 }
 
 .toggleButton {
@@ -91,12 +85,12 @@
 }
 
 .toggleLink {
-  color: #0070f3; /* Match your button color or adjust as needed */
-  text-decoration: none; /* Remove underline */
-  cursor: pointer; /* Indicate interactivity */
-  transition: color 0.2s ease-in-out; /* Add hover effect (optional) */
+  color: #0070f3;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
 }
 
 .toggleLink:hover {
-  color: #0069d9; /* Adjust hover color (optional) */
+  color: #0069d9;
 }
