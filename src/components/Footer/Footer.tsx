@@ -4,7 +4,6 @@ import styles from './footer.module.css';
 const footerLinks = [
   { text: 'Privacy Policy', link: '/privacy-policy' },
   { text: 'Terms of Service', link: '/terms-of-service' },
-  { text: 'Contact Us', link: '/contact-us' },
 ];
 
 const Footer = () => {
@@ -19,7 +18,7 @@ const Footer = () => {
           </li>
         ))}
       </ul>
-      <p className={styles.footerCopyright}>&copy; 2024 SwiftSite. All Rights Reserved.</p>
+      <p className={styles.footerCopyright}>&copy; 2024 SwiftSite.</p>
     </footer>
   );
 };
