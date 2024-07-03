@@ -13,11 +13,8 @@ const Hero: React.FC = () => {
             <Link className={styles.authLink} href="auth">Create an Account</Link>
           </button>
           <button className={styles.btnSecondary}>
-            <Link className={styles.aboutLink} href="#about">Learn More</Link>
+            <Link className={styles.aboutLink} href="#templates">Learn More</Link>
           </button>
-        </div>
-        <div className={styles.searchBar}>
-          <input className={styles.searchBarInput} type="text" placeholder="Search templates..." />
         </div>
         <div className={styles.socialProof}>
           <span>Trusted by 50,000+ users</span>

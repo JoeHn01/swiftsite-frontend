@@ -1,8 +1,113 @@
 .templates {
+  padding: 50px;
+  background: #fff;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.templatesGrid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.templateCard {
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.templateCard:hover {
+  transform: translateY(-10px);
+  cursor: pointer;
+}
+
+.templateImage {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.templateTitle {
+  font-size: 1.5rem;
+  margin: 15px 0;
+}
+
+.templateDescription {
+  font-size: 1rem;
+  color: #666;
+}
+
+.arrowContainer {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100%;
-  background-color: rgb(233, 250, 135);
+}
+
+.arrowLeft, .arrowRight {
+  font-size: 2rem;
+  color: #007bff;
+  cursor: pointer;
+  user-select: none;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.arrowLeft:hover, .arrowRight:hover {
+  color: #0056b3;
+}
+
+.arrowLeft {
+  margin-right: 10px;
+}
+
+.arrowRight {
+  margin-left: 10px;
+}
+
+.searchBar {
+  margin-top: 30px;
+}
+
+.searchBarInput {
+  width: 50%;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.buttonContainer {
+  margin-top: 30px;
+}
+
+.btnPrimary {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btnPrimary:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}
+
+@media (max-width: 1368px) {
+  .arrowLeft, .arrowRight {
+    display: none;
+  }
 }
