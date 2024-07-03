@@ -20,6 +20,12 @@ const templates = [
     title: 'E-commerce Template',
     description: 'An elegant template for your online store.',
     image: 'empty-image.jpg'
+  },
+  {
+    id: 4,
+    title: 'Restaurant Template',
+    description: 'A very attractive template for your restaurant.',
+    image: 'empty-image.jpg'
   }
 ];
 
@@ -27,8 +33,8 @@ const Templates: React.FC = () => {
   return (
     <div id="templates" className={styles.templates}>
       <h2 className={styles.sectionTitle}>Featured Templates</h2>
-      <div className={styles.arrowContainer}>
-        <div className={styles.arrowLeft}>{'<'}</div>
+      <div className={styles.templatesContainer}>
+        {/* <div className={styles.arrowLeft}>{'<-'}</div> */}
         <div className={styles.templatesGrid}>
           {templates.map(template => (
             <div key={template.id} className={styles.templateCard}>
@@ -38,7 +44,7 @@ const Templates: React.FC = () => {
             </div>
           ))}
         </div>
-        <div className={styles.arrowRight}>{'>'}</div>
+        {/* <div className={styles.arrowRight}>{'->'}</div> */}
       </div>
       <div className={styles.buttonContainer}>
         <Link href="/templates">

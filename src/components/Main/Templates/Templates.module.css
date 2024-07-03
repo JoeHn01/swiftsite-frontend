@@ -1,8 +1,8 @@
 .templates {
-  padding: 50px;
   background: #fff;
   text-align: center;
   min-height: 100vh;
+  max-width: 100%;
 }
 
 .sectionTitle {
@@ -12,9 +12,11 @@
 
 .templatesGrid {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  align-items: center;
+  max-width: 75%;
   gap: 20px;
+  padding-top: 10px;
+  overflow-x: auto;
 }
 
 .templateCard {
@@ -22,7 +24,7 @@
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   padding: 20px;
-  width: 300px;
+  min-width: 300px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
 }
@@ -47,9 +49,10 @@
   color: #666;
 }
 
-.arrowContainer {
+.templatesContainer {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .arrowLeft, .arrowRight {
