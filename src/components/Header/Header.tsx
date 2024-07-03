@@ -9,7 +9,7 @@ const Header: React.FC<HeaderProps> = () => {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link href="/">
+        <Link className={styles.mainLink} href="/">
           <div className={styles.logo}>SwiftSite</div>
         </Link>
         <HeaderNav />
