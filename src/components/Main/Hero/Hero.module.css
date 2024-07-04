@@ -8,9 +8,8 @@
 }
 
 .heroContent {
-  flex: 1;
-  padding: 50px;
-  max-width: 100%;
+  max-width: 50%;
+  padding-left: 25px;
 }
 
 .heroHeading {
@@ -71,11 +70,11 @@
 }
 
 .heroImageContainer {
-  flex: 1;
-  max-width: 50%;
+  max-width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-right: 25px;
 }
 
 .heroImage {
@@ -93,6 +92,7 @@
 
   .heroContent {
     text-align: center;
+    max-width: 75%;
   }
 
   .ctaButtons {
@@ -100,7 +100,7 @@
   }
 
   .heroImageContainer {
-    max-width: 80%;
+    max-width: 60%;
     margin: 20px 0 50px 0;
   }
 }
