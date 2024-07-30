@@ -8,7 +8,7 @@ interface HeaderProps {}
 const Header: React.FC<HeaderProps> = () => {
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
+      <div className={styles.headerContainer}>
         <Link className={styles.mainLink} href="/">
           <div className={styles.logo}>SwiftSite</div>
         </Link>

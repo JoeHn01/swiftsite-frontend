@@ -1,13 +1,21 @@
 'use client'
 
 import React from 'react'
+import { usePathname } from 'next/navigation';
 import styles from './HeaderNav.module.css'
 
 interface NavItem {
   label: string;
 }
 
-const HeaderNav = () => {
+const HeaderNav: React.FC = () => {
+  const pathname = usePathname();
+  const isLandingPage = pathname === '/';
+
+  if (!isLandingPage) {
+    return null;
+  }
+
   const navigationItems: NavItem[] = [
     { label: "Home" },
     { label: "Templates" },
