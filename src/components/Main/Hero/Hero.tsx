@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
         </div>
       </div>
       <div className={styles.heroImageContainer}>
-        <img className={styles.heroImage} src="empty-image.jpg" alt="Hero" />
+        <img className={styles.heroImage} src="hero-image.jpg" alt="Hero" />
       </div>
     </div>
   );

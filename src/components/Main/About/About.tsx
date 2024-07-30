@@ -3,8 +3,8 @@ import styles from './About.module.css';
 
 const About: React.FC = () => {
   const teamMembers = [
-    { name: 'John Doe', title: 'Founder & CEO', image: 'empty-image.jpg' },
-    { name: 'Jane Smith', title: 'Marketing Director', image: 'empty-image.jpg' },
+    { name: 'John Doe', title: 'Founder & CEO', image: 'ceo.jpg' },
+    { name: 'Jane Smith', title: 'Marketing Director', image: 'md.jpg' },
   ];
 
   const whyChooseUs = [
