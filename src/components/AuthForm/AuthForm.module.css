@@ -5,6 +5,7 @@
   justify-content: center;
   background-color: #f5f5f5;
   padding: 20px;
+  margin-top: 50px;
   border-radius: 5px;
   max-width: 400px;
 }
@@ -38,7 +39,8 @@
   font-size: 14px;
   color: #999;
   pointer-events: none;
-  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  padding: 0 5px;
 }
 
 .authInput {
@@ -48,6 +50,14 @@
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 16px;
+}
+
+.authInput:focus + .authLabel {
+  top: -1px;
+  left: 10px;
+  font-size: 12px;
+  color: #333;
+  background-color: #f5f5f5;
 }
 
 .authButton {

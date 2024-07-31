@@ -23,8 +23,8 @@ const signUpFields: FormField[] = [
   { label: 'Confirm Password:', type: 'password', id: 'confirmPassword', name: 'confirmPassword', required: true },
 ];
 
-const AuthForm = () => {
-  const [isSignIn, setIsSignIn] = useState(true); // Default to sign-in
+const AuthForm: React.FC = () => {
+  const [isSignIn, setIsSignIn] = useState(false);
 
   const handleToggle = () => {
     setIsSignIn(!isSignIn);
@@ -38,9 +38,6 @@ const AuthForm = () => {
       <form className={styles.authForm}>
         {formFields.map((field) => (
           <div key={field.id} className={styles.inputContainer}>
-            <label className={styles.authLabel} htmlFor={field.id}>
-              {field.label}
-            </label>
             <input
               className={styles.authInput}
               type={field.type}
@@ -48,6 +45,9 @@ const AuthForm = () => {
               name={field.name}
               required={field.required}
             />
+            <label className={styles.authLabel} htmlFor={field.id}>
+              {field.label}
+            </label>
           </div>
         ))}
         <button type="submit" className={styles.authButton}>
