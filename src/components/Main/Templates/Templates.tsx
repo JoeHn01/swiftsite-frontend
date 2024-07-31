@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Templates.module.css';
 import Link from 'next/link';
+import Button from '@/components/Button/Button';
 
 const templates = [
   {
@@ -60,7 +61,7 @@ const Templates: React.FC = () => {
       </div>
       <div className={styles.buttonContainer}>
         <Link href="/templates">
-          <button className={styles.btnPrimary}>View All Templates</button>
+          <Button variant='primary' >View All Templates</Button>
         </Link>
         <div className={styles.searchBar}>
         <input className={styles.searchBarInput} type="text" placeholder="Search templates..." />

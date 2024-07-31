@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import styles from './Header.module.css';
 import HeaderNav from './HeaderNav/HeaderNav';
+import Button from '../Button/Button';
 
 interface HeaderProps {}
 
@@ -14,7 +15,9 @@ const Header: React.FC<HeaderProps> = () => {
         </Link>
         <HeaderNav />
         <Link href="/auth">
-          <button className={styles.headerButton}>Get Started</button>
+        <Button variant="primary">
+            Get Started
+        </Button>
         </Link>
       </div>
     </header>

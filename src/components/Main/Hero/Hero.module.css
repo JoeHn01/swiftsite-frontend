@@ -28,47 +28,6 @@
   margin-bottom: 20px;
 }
 
-.btnPrimary, .btnSecondary {
-  font-size: 1rem;
-  cursor: pointer;
-  border: none;
-  text-decoration: none;
-}
-
-.authLink, .aboutLink {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  padding: 15px;
-  transition: background-color 0.3s, color 0.3s;
-  text-align: center;
-}
-
-.btnPrimary .authLink {
-  background-color: #007bff;
-  color: white;
-}
-
-.btnPrimary .authLink:hover {
-  background-color: #0056b3;
-}
-
-.btnSecondary .aboutLink {
-  background-color: transparent;
-  color: #007bff;
-  border: 2px solid #007bff;
-}
-
-.btnSecondary .aboutLink:hover {
-  background-color: #007bff;
-  color: white;
-}
-
-.socialProof {
-  margin-top: 20px;
-  font-size: 1rem;
-}
-
 .heroImageContainer {
   max-width: 40%;
   display: flex;
@@ -80,6 +39,11 @@
 .heroImage {
   max-width: 100%;
   height: auto;
+}
+
+.socialProof {
+  margin-top: 20px;
+  font-size: 1rem;
 }
 
 @media (max-width: 768px) {

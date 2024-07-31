@@ -35,17 +35,3 @@
   color: #333;
   cursor: pointer;
 }
-
-.headerButton {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.headerButton:hover {
-  background-color: #0069d9;
-}

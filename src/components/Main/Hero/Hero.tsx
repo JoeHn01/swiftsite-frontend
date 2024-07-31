@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Hero.module.css';
 import Link from 'next/link';
+import Button from '@/components/Button/Button';
 
 const Hero: React.FC = () => {
   return (
@@ -9,12 +10,12 @@ const Hero: React.FC = () => {
         <h1 className={styles.heroHeading}>Your Ultimate Templating Solution</h1>
         <p className={styles.heroPar}>Create stunning templates effortlessly with our comprehensive library.</p>
         <div className={styles.ctaButtons}>
-          <button className={styles.btnPrimary}>
-            <Link className={styles.authLink} href="auth">Create an Account</Link>
-          </button>
-          <button className={styles.btnSecondary}>
-            <Link className={styles.aboutLink} href="templates">Learn More</Link>
-          </button>
+          <Link href="auth">
+            <Button variant='primary'>Create an Account</Button>
+          </Link>
+          <Link href="templates">
+            <Button variant='secondary'>Learn More</Button>
+          </Link>
         </div>
         <div className={styles.socialProof}>
           <span>Trusted by 50,000+ users</span>

@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './About.module.css';
+import Link from 'next/link';
+import Button from '@/components/Button/Button';
 
 const About: React.FC = () => {
   const teamMembers = [
@@ -43,7 +45,9 @@ const About: React.FC = () => {
             </div>
           ))}
         </div>
-        <a href="contact" className={styles.contactButton}>Contact Us Today</a>
+        <Link href="contact">
+          <Button variant='primary'>Contact Us Today</Button>
+        </Link>
       </div>
     </div>
   );
