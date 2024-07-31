@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import styles from './Header.module.css';
 import HeaderNav from './HeaderNav/HeaderNav';
-// import Button from '../Button/Button';
+import SearchBar from './SearchBar/SearchBar';
 import HeaderButton from './HeaderButton/HeaderButton';
 
 interface HeaderProps {}
@@ -15,6 +15,7 @@ const Header: React.FC<HeaderProps> = () => {
           <div className={styles.logo}>SwiftSite</div>
         </Link>
         <HeaderNav />
+        <SearchBar />
         <HeaderButton />
       </div>
     </header>
