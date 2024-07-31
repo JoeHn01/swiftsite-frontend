@@ -1,0 +1,72 @@
+.templateGridSection {
+  background: #fff;
+  text-align: center;
+  max-width: 100%;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.templatesGrid {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+  margin: 0 25px 0 25px;
+  overflow-x: auto;
+}
+
+.templateCard {
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 10px;
+  min-width: 280px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.templateCard:hover {
+  transform: translateY(-10px);
+  cursor: pointer;
+}
+
+.templatesGrid::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.templatesGrid::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.templatesGrid::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.templatesGrid::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.templateImage {
+  max-width: 100%;
+  max-height: 45%;
+  border-radius: 10px;
+}
+
+.templateTitle {
+  font-size: 1.5rem;
+}
+
+.templateDescription {
+  font-size: 1rem;
+  color: #666;
+}

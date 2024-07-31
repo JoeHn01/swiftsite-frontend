@@ -1,14 +1,15 @@
 import React from 'react';
-import styles from './Templates.module.css';
 import Link from 'next/link';
 import Button from '@/components/Button/Button';
+import TemplateGrid from '../../Templates/TemplateGrid/TemplateGrid';
+import styles from './Templates.module.css';
 
 const templates = [
   {
     id: 1,
     title: 'Business',
     description: 'A sleek and professional business template.',
-    image: 'business-template.jpg'
+    image: 'business-template.jpg',
   },
   {
     id: 2,
@@ -45,27 +46,14 @@ const templates = [
 const Templates: React.FC = () => {
   return (
     <div id="templates" className={styles.templates}>
-      <h2 className={styles.sectionTitle}>Featured Templates</h2>
-      <div className={styles.templatesContainer}>
-        {/* <div className={styles.arrowLeft}>{'<-'}</div> */}
-        <div className={styles.templatesGrid}>
-          {templates.map(template => (
-            <div key={template.id} className={styles.templateCard}>
-              <img src={template.image} alt={template.title} className={styles.templateImage} />
-              <h3 className={styles.templateTitle}>{template.title}</h3>
-              <p className={styles.templateDescription}>{template.description}</p>
-            </div>
-          ))}
-        </div>
-        {/* <div className={styles.arrowRight}>{'->'}</div> */}
-      </div>
+      <TemplateGrid title="Featured Templates" templates={templates} />
       <div className={styles.buttonContainer}>
-        <Link href="/templates">
-          <Button variant='primary' >View All Templates</Button>
+        <Link href="templates">
+          <Button variant='primary' >Browse All Templates</Button>
         </Link>
-        <div className={styles.searchBar}>
-        <input className={styles.searchBarInput} type="text" placeholder="Search templates..." />
       </div>
+      <div className={styles.searchBar}>
+        <input className={styles.searchBarInput} type="text" placeholder="Search templates..." />
       </div>
     </div>
   );
