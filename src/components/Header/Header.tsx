@@ -2,7 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import styles from './Header.module.css';
 import HeaderNav from './HeaderNav/HeaderNav';
-import Button from '../Button/Button';
+// import Button from '../Button/Button';
+import HeaderButton from './HeaderButton/HeaderButton';
 
 interface HeaderProps {}
 
@@ -14,11 +15,7 @@ const Header: React.FC<HeaderProps> = () => {
           <div className={styles.logo}>SwiftSite</div>
         </Link>
         <HeaderNav />
-        <Link href="/auth">
-        <Button variant="primary">
-            Get Started
-        </Button>
-        </Link>
+        <HeaderButton />
       </div>
     </header>
   );
