@@ -40,24 +40,42 @@
   color: #999;
   pointer-events: none;
   transition: 0.2s ease-in-out;
-  padding: 0 5px;
 }
 
 .authInput {
   width: 100%;
-  padding: 10px 15px;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 15px;
 }
 
-.authInput:focus + .authLabel {
+.authInput:focus + .authLabel,
+.authInput:not(:placeholder-shown) + .authLabel  {
   top: -1px;
-  left: 10px;
-  font-size: 12px;
+  left: 15px;
+  font-size: 14px;
   color: #333;
   background-color: #f5f5f5;
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.passwordToggle:hover {
+  color: #333;
 }
 
 .authButton {
