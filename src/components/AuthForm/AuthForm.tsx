@@ -27,6 +27,13 @@ const signUpFields: FormField[] = [
 const AuthForm: React.FC = () => {
   const [isSignIn, setIsSignIn] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
   const handleToggle = () => {
     setIsSignIn(!isSignIn);
@@ -36,12 +43,61 @@ const AuthForm: React.FC = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isSignIn) {
+      const { firstName, lastName, email, password, confirmPassword } = formData;
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+  
+      const username = email.split('@')[0];
+    
+      try {
+        const response = await fetch('http://localhost:3000/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username,
+            name: `${firstName} ${lastName}`,
+            email,
+            password,
+          }),
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          alert('User created successfully');
+        } else {
+          const errorData = await response.json();
+          console.error('Error response:', errorData);
+          alert(`Error: ${errorData.message}`);
+        }
+      } catch (error) {
+        console.error('Network error:', error);
+        alert('A network error occurred');
+      }
+    } else {
+      // Sign in logic
+    }
+  };
+  
   const formFields = isSignIn ? signInFields : signUpFields;
 
   return (
     <div className={styles.authContainer}>
       <h1 className={styles.authHeading}>{isSignIn ? 'Sign In' : 'Sign Up'}</h1>
-      <form className={styles.authForm}>
+      <form className={styles.authForm} onSubmit={handleSubmit}>
         {formFields.map((field) => (
           <div key={field.id} className={styles.inputContainer}>
             <input
@@ -51,6 +107,8 @@ const AuthForm: React.FC = () => {
               name={field.name}
               required={field.required}
               placeholder=" "
+              value={formData[field.name as keyof typeof formData]}
+              onChange={handleChange}
             />
             <label className={styles.authLabel} htmlFor={field.id}>
               {field.label}
