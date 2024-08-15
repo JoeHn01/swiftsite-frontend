@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './AuthForm.module.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
@@ -25,6 +26,7 @@ const signUpFields: FormField[] = [
 ];
 
 const AuthForm: React.FC = () => {
+  const router = useRouter();
   const [isSignIn, setIsSignIn] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -77,15 +79,14 @@ const AuthForm: React.FC = () => {
   
         if (response.ok) {
           const data = await response.json();
-          alert('User created successfully');
+          alert('Account created successfully!');
+          router.push('/templates');
         } else {
           const errorData = await response.json();
-          console.error('Error response:', errorData);
           alert(`Error: ${errorData.message}`);
         }
       } catch (error) {
-        console.error('Network error:', error);
-        alert('A network error occurred');
+        alert('A network error occurred!');
       }
     } else {
       // Sign in logic
