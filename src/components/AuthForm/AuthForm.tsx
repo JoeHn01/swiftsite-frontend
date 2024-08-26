@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './AuthForm.module.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 interface FormField {
   label: string;
@@ -57,7 +58,7 @@ const AuthForm: React.FC = () => {
     if (!isSignIn) {
       const { firstName, lastName, email, password, confirmPassword } = formData;
       if (password !== confirmPassword) {
-        alert('Passwords do not match');
+        toast.error('Passwords do not match');
         return;
       }
   
@@ -79,14 +80,14 @@ const AuthForm: React.FC = () => {
   
         if (response.ok) {
           const data = await response.json();
-          alert('Account created successfully!');
+          toast.success('Account Created Successfully!')
           router.push('/templates');
         } else {
           const errorData = await response.json();
-          alert(`Error: ${errorData.message}`);
+          toast.error(`Error: ${errorData.message}`);
         }
       } catch (error) {
-        alert('A network error occurred!');
+        toast.error('A network error occurred!');
       }
     } else {
       // Sign in logic
