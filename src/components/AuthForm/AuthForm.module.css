@@ -34,7 +34,7 @@
 
 .authLabel {
   position: absolute;
-  top: 50%;
+  top: 20px;
   left: 15px;
   transform: translateY(-50%);
   font-size: 14px;
@@ -63,7 +63,7 @@
 
 .passwordToggle {
   position: absolute;
-  top: 50%;
+  top: 20px;
   right: 5px;
   transform: translateY(-50%);
   background: none;
@@ -100,18 +100,7 @@
   background-color: #0069d9;
 }
 
-.toggleButton {
-  margin-top: 15px;
-  padding: 5px 10px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
 
-.toggleButton:hover {
-  background-color: #eee;
-}
 
 .toggleLink {
   color: #0070f3;
@@ -122,4 +111,9 @@
 
 .toggleLink:hover {
   color: #0069d9;
+}
+
+.error {
+  color: #ff0000;
+  font-size: 12px;
 }

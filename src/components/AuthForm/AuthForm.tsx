@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 import styles from './AuthForm.module.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import Button from '../Button/Button';
 
 interface FormField {
   label: string;
@@ -38,7 +41,26 @@ const AuthForm: React.FC = () => {
     confirmPassword: '',
   });
 
-  const handleToggle = () => {
+  const initialValues = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
+
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required('First Name is required'),
+    lastName: Yup.string().required('Last Name is required'),
+    email: Yup.string().email('Invalid email address').required('Email is required'),
+    password: Yup.string().required('Password is required'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
+      .required('Confirm Password is required'),
+  });
+
+
+  const handleToggleForm = () => {
     setIsSignIn(!isSignIn);
   };
 
@@ -46,21 +68,9 @@ const AuthForm: React.FC = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (values: typeof initialValues) => {
     if (!isSignIn) {
-      const { firstName, lastName, email, password, confirmPassword } = formData;
-      if (password !== confirmPassword) {
-        toast.error('Passwords do not match');
-        return;
-      }
+      const { firstName, lastName, email, password } = values;
   
       const username = email.split('@')[0];
     
@@ -97,53 +107,53 @@ const AuthForm: React.FC = () => {
   const formFields = isSignIn ? signInFields : signUpFields;
 
   return (
-    <div className={styles.authContainer}>
-      <h1 className={styles.authHeading}>{isSignIn ? 'Sign In' : 'Sign Up'}</h1>
-      <form className={styles.authForm} onSubmit={handleSubmit}>
-        {formFields.map((field) => (
-          <div key={field.id} className={styles.inputContainer}>
-            <input
-              className={styles.authInput}
-              type={field.type === 'password' && showPassword ? 'text' : field.type}
-              id={field.id}
-              name={field.name}
-              required={field.required}
-              placeholder=" "
-              value={formData[field.name as keyof typeof formData]}
-              onChange={handleChange}
-            />
-            <label className={styles.authLabel} htmlFor={field.id}>
-              {field.label}
-            </label>
-            {field.type === 'password' && (
-              <button
-                type="button"
-                className={styles.passwordToggle}
-                onClick={handleTogglePassword}
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            )}
-          </div>
-        ))}
-        <button type="submit" className={styles.authButton}>
-          {isSignIn ? 'Sign In' : 'Sign Up'}
-        </button>
-      </form>
-      <p className={styles.authPar}>
-        {isSignIn ? (
-          <>
-            Don't have an account?{' '}
-            <a onClick={handleToggle} className={styles.toggleLink}>Sign Up</a>
-          </>
-        ) : (
-          <>
-            Already have an account?{' '}
-            <a onClick={handleToggle} className={styles.toggleLink}>Sign In</a>
-          </>
-        )}
-      </p>
-    </div>
+    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+      <div className={styles.authContainer}>
+        <h1 className={styles.authHeading}>{isSignIn ? 'Sign In' : 'Sign Up'}</h1>
+        <Form className={styles.authForm}>
+          {formFields.map((field) => (
+            <div key={field.id} className={styles.inputContainer}>
+              <Field
+                className={styles.authInput}
+                type={field.type === 'password' && showPassword ? 'text' : field.type}
+                id={field.id}
+                name={field.name}
+                placeholder=""
+              />
+              <label className={styles.authLabel} htmlFor={field.id}>
+                {field.label}
+              </label>
+              <ErrorMessage name={field.name} component="div" className={styles.error} />
+              {field.type === 'password' && (
+                <button
+                  type="button"
+                  className={styles.passwordToggle}
+                  onClick={handleTogglePassword}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              )}
+            </div>
+          ))}
+          <Button variant='primary' className={styles.authButton}>
+            {isSignIn ? 'Sign In' : 'Sign Up'}
+          </Button>
+        </Form>
+        <p className={styles.authPar}>
+          {isSignIn ? (
+            <>
+              Don't have an account?{' '}
+              <a onClick={handleToggleForm} className={styles.toggleLink}>Sign Up</a>
+            </>
+          ) : (
+            <>
+              Already have an account?{' '}
+              <a onClick={handleToggleForm} className={styles.toggleLink}>Sign In</a>
+            </>
+          )}
+        </p>
+      </div>
+    </Formik>
   );
 };
 
