@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './AuthForm.module.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -8,21 +8,15 @@ import toast from 'react-hot-toast';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Button from '../Button/Button';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { toggleSignIn, togglePasswordVisibility, setFormData } from '../../redux/features/auth/authSlice';
 
-interface FormField {
-  label: string;
-  type: string;
-  id: string;
-  name: string;
-  required?: boolean;
-}
-
-const signInFields: FormField[] = [
+const signInFields = [
   { label: 'Email', type: 'email', id: 'email', name: 'email', required: true },
   { label: 'Password', type: 'password', id: 'password', name: 'password', required: true },
 ];
 
-const signUpFields: FormField[] = [
+const signUpFields = [
   { label: 'First Name', type: 'text', id: 'firstName', name: 'firstName', required: true },
   { label: 'Last Name', type: 'text', id: 'lastName', name: 'lastName', required: true },
   ...signInFields,
@@ -31,23 +25,10 @@ const signUpFields: FormField[] = [
 
 const AuthForm: React.FC = () => {
   const router = useRouter();
-  const [isSignIn, setIsSignIn] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
+  const dispatch = useAppDispatch();
+  const { isSignIn, showPassword, formData } = useAppSelector((state) => state.auth);
 
-  const initialValues = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  };
+  const initialValues = formData;
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required('First Name is required'),
@@ -59,21 +40,21 @@ const AuthForm: React.FC = () => {
       .required('Confirm Password is required'),
   });
 
-
   const handleToggleForm = () => {
-    setIsSignIn(!isSignIn);
+    dispatch(toggleSignIn());
   };
 
   const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
+    dispatch(togglePasswordVisibility());
   };
 
   const handleSubmit = async (values: typeof initialValues) => {
+    dispatch(setFormData(values));
+
     if (!isSignIn) {
       const { firstName, lastName, email, password } = values;
-  
       const username = email.split('@')[0];
-    
+  
       try {
         const response = await fetch('http://localhost:3000/users', {
           method: 'POST',
@@ -89,8 +70,7 @@ const AuthForm: React.FC = () => {
         });
   
         if (response.ok) {
-          const data = await response.json();
-          toast.success('Account Created Successfully!')
+          toast.success('Account Created Successfully!');
           router.push('/templates');
         } else {
           const errorData = await response.json();
@@ -113,7 +93,7 @@ const AuthForm: React.FC = () => {
         <Form className={styles.authForm}>
           {formFields.map((field) => (
             <div key={field.id} className={styles.inputContainer}>
-              <Field
+               <Field
                 className={styles.authInput}
                 type={field.type === 'password' && showPassword ? 'text' : field.type}
                 id={field.id}
@@ -124,6 +104,7 @@ const AuthForm: React.FC = () => {
                 {field.label}
               </label>
               <ErrorMessage name={field.name} component="div" className={styles.error} />
+
               {field.type === 'password' && (
                 <button
                   type="button"
