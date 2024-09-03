@@ -28,13 +28,13 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    toggleSignIn: (state) => {
+    toggleSignIn: (state: AuthState) => {
       state.isSignIn = !state.isSignIn;
     },
-    togglePasswordVisibility: (state) => {
+    togglePasswordVisibility: (state: AuthState) => {
       state.showPassword = !state.showPassword;
     },
-    setFormData: (state, action: PayloadAction<Partial<AuthState['formData']>>) => {
+    setFormData: (state: AuthState, action: PayloadAction<Partial<AuthState['formData']>>) => {
       state.formData = { ...state.formData, ...action.payload };
     },
   },
