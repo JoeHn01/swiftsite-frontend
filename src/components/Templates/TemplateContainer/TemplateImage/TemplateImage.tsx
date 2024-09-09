@@ -1,14 +1,30 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import { ImEnlarge2 } from 'react-icons/im';
 import styles from './TemplateImage.module.css';
 
-const TemplateImage: React.FC = () => {
+const HoverImage: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
   const imageRef = useRef<HTMLImageElement>(null);
 
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
+
+  const handleFullscreen = () => {
+    const image = imageRef.current;
+    if (image) {
+      if (image.requestFullscreen) {
+        image.requestFullscreen();
+      } else if ((image as any).webkitRequestFullscreen) {
+        // Safari specific
+        (image as any).webkitRequestFullscreen();
+      } else if ((image as any).msRequestFullscreen) {
+        // IE11 specific
+        (image as any).msRequestFullscreen();
+      }
+    }
+  };
 
   return (
     <div
@@ -18,7 +34,9 @@ const TemplateImage: React.FC = () => {
     >
       {isHovering && (
         <div className={styles.hoverBar}>
-            {/* TODO: Add buttons for template-related actions (fullscreen, zooming, etc.) */}
+          <button className={styles.hoverBarButton} onClick={handleFullscreen}>
+            <ImEnlarge2 />
+          </button>
         </div>
       )}
       <img
@@ -31,4 +49,4 @@ const TemplateImage: React.FC = () => {
   );
 };
 
-export default TemplateImage;
+export default HoverImage;
