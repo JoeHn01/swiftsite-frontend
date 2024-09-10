@@ -3,13 +3,15 @@ import TemplateImage from './TemplateImage/TemplateImage';
 import styles from './TemplateContainer.module.css';
 
 interface TemplateContainerProps {
-  templateId: string;
+  templateName: string;
+  templateDescription: string;
 }
   
-const TemplateContainer: FC<TemplateContainerProps> = ({ templateId }) => {
+const TemplateContainer: FC<TemplateContainerProps> = ({ templateName, templateDescription }) => {
   return (
     <div className={styles.templateContainer}>
-      <h1>Template with ID: {templateId}</h1>
+      <h1>{templateName}</h1>
+      <h3>{templateDescription}</h3>
       <TemplateImage />
     </div>
   );
