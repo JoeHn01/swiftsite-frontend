@@ -15,7 +15,6 @@ const news = [
     title: 'Platform Maintenance',
     description: 'Scheduled maintenance will occur this weekend.',
     date: '2024-08-25',
-    // image: 'empty-image.jpg',
     link: '/news/maintenance',
   },
   {
@@ -23,7 +22,6 @@ const news = [
     title: 'New Template Designs Available',
     description: 'Check out our latest template designs.',
     date: '2024-08-15',
-    // image: 'empty-image.jpg',
     link: '/news/new-templates',
   },
 ];
@@ -31,7 +29,7 @@ const news = [
 const News: React.FC = () => {
 
   return (
-    <div className={styles.news}>
+    <div id="news" className={styles.news}>
       <h2 className={styles.newsTitle}>Latest News</h2>
       <div className={styles.newsContainer}>
         {news.map((item) => (

@@ -19,6 +19,7 @@ const HeaderNav: React.FC = () => {
   const navigationItems: NavItem[] = [
     { label: "Home" },
     { label: "Templates" },
+    { label: "News" },
     { label: "About" },
   ];
 
