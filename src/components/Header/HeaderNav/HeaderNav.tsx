@@ -1,8 +1,9 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useRef } from 'react';
+import { GiHamburgerMenu } from "react-icons/gi";
 import { usePathname } from 'next/navigation';
-import styles from './HeaderNav.module.css'
+import styles from './HeaderNav.module.css';
 
 interface NavItem {
   label: string;
@@ -11,6 +12,8 @@ interface NavItem {
 const HeaderNav: React.FC = () => {
   const pathname = usePathname();
   const isLandingPage = pathname === '/';
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   if (!isLandingPage) {
     return null;
@@ -32,12 +35,24 @@ const HeaderNav: React.FC = () => {
     }
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <div className={styles.headerNav}>
-      <ul className={styles.headerNavList}>
+    <div ref={headerRef} className={styles.headerNav}>
+      <button onClick={toggleMenu} className={styles.burgerButton}>
+        <GiHamburgerMenu />
+      </button>
+      <ul
+        className={`${styles.headerNavList} ${isMenuOpen ? styles.mobileMenu : ''}`}
+      >
         {navigationItems.map((item) => (
           <li key={item.label} className={styles.headerNavItem}>
-            <button onClick={() => handleNavClick(item.label.toLowerCase())} className={styles.headerNavButton}>
+            <button
+              onClick={() => handleNavClick(item.label.toLowerCase())}
+              className={styles.headerNavButton}
+            >
               {item.label}
             </button>
           </li>

@@ -1,0 +1,9 @@
+.headerButtonWrapper {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .headerButtonWrapper {
+    display: none;
+  }
+}

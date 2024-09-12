@@ -28,9 +28,47 @@
   background-color: #e8f0fe;
 }
 
-@media screen and (max-width: 768px) {
+.burgerButton {
+  display: none;
+  font-size: 1.5rem;
+  background: 0 0;
+  border: none;
+  cursor: pointer;
+}
+
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0,0,0,.1);
+}
+
+.mobileMenu .headerNavItem {
+  margin: 0
+}
+@media (max-width:768px) {
   .headerNav {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .headerNavList {
+    display: none;
+  }
+
+  .headerNavButton {
+    width: 100%;
+  }
+
+  .burgerButton {
+    display: block;
+  }
+
+  .mobileMenu{
+    display: flex;
   }
 }
