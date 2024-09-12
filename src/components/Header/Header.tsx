@@ -15,7 +15,6 @@ const Header: React.FC<HeaderProps> = () => {
           <div className={styles.logo}>SwiftSite</div>
         </Link>
         <HeaderNav />
-        <SearchBar />
         <HeaderButton />
       </div>
     </header>

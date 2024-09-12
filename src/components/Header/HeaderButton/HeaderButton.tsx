@@ -11,7 +11,7 @@ const HeaderButton: React.FC = () => {
   const isAuthPage = pathname === '/auth';
 
   return !isAuthPage ? (
-    <div className={styles.headerButtonWrapper}>
+    <div className={pathname === '/' ?  styles.hideOnMain : styles.headerButtonWrapper}>
       <Link href="/auth" >
         <Button variant="primary">Get Started</Button>
       </Link>

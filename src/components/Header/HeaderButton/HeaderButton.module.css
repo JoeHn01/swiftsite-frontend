@@ -2,8 +2,12 @@
   display: flex;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
   .headerButtonWrapper {
+    display: flex;
+  }
+
+  .hideOnMain {
     display: none;
   }
 }

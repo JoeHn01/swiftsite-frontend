@@ -52,9 +52,6 @@ const Templates: React.FC = () => {
           <Button variant='primary' >Browse All Templates</Button>
         </Link>
       </div>
-      <div className={styles.searchBar}>
-        <input className={styles.searchBarInput} type="text" placeholder="Search templates..." />
-      </div>
     </div>
   );
 }
