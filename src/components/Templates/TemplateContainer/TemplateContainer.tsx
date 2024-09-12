@@ -12,7 +12,7 @@ const TemplateContainer: FC<TemplateContainerProps> = ({ templateName, templateD
     <div className={styles.templateContainer}>
       <h1>{templateName}</h1>
       <h3>{templateDescription}</h3>
-      <TemplateImage />
+      <TemplateImage templateName={templateName} />
     </div>
   );
 };

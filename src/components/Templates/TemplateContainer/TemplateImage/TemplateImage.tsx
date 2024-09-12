@@ -1,30 +1,17 @@
-'use client';
-
 import React, { useState, useRef } from 'react';
-import { ImEnlarge2 } from 'react-icons/im';
+import HoverBar from './HoverBar/HoverBar';
 import styles from './TemplateImage.module.css';
 
-const HoverImage: React.FC = () => {
+interface TemplateImageProps {
+  templateName: string;
+}
+
+const TemplateImage: React.FC<TemplateImageProps> = ({ templateName }) => {
   const [isHovering, setIsHovering] = useState(false);
   const imageRef = useRef<HTMLImageElement>(null);
 
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
-
-  const handleFullscreen = () => {
-    const image = imageRef.current;
-    if (image) {
-      if (image.requestFullscreen) {
-        image.requestFullscreen();
-      } else if ((image as any).webkitRequestFullscreen) {
-        // Safari specific
-        (image as any).webkitRequestFullscreen();
-      } else if ((image as any).msRequestFullscreen) {
-        // IE11 specific
-        (image as any).msRequestFullscreen();
-      }
-    }
-  };
 
   return (
     <div
@@ -33,11 +20,7 @@ const HoverImage: React.FC = () => {
       onMouseLeave={handleMouseLeave}
     >
       {isHovering && (
-        <div className={styles.hoverBar}>
-          <button className={styles.hoverBarButton} onClick={handleFullscreen}>
-            <ImEnlarge2 />
-          </button>
-        </div>
+        <HoverBar templateName={templateName} imageRef={imageRef} />
       )}
       <img
         ref={imageRef}
@@ -49,4 +32,4 @@ const HoverImage: React.FC = () => {
   );
 };
 
-export default HoverImage;
+export default TemplateImage;

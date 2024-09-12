@@ -71,7 +71,7 @@
   -webkit-line-clamp: 3;
   line-height: 1.4;
   max-width: 100%;
-  word-wrap: break-word; /* Ensure long words break properly */
+  word-wrap: break-word;
   margin-bottom: 10px;
 }
 
