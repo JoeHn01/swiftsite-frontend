@@ -8,7 +8,7 @@ const Hero = () => {
       <div className={styles.heroContent}>
         <h1>Build Stunning Websites in Minutes</h1>
         <p>Create professional websites with our pre-designed, customizable templates.</p>
-        <SearchBar />
+      <SearchBar />
       </div>
     </div>
   );
