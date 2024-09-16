@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './NewsContainer.module.css';
+import NewsImage from './NewsImage/NewsImage';
 
 interface NewsContainerProps {
   title: string;
@@ -12,10 +13,10 @@ const NewsContainer: React.FC<NewsContainerProps> = ({ title, date, content }) =
     <div className={styles.newsContainer}>
       <h1 className={styles.newsTitle}>{title}</h1>
       <p className={styles.newsDate}>{date}</p>
+      <NewsImage />
       <div className={styles.newsContent}>
         <p>{content}</p>
       </div>
-      {/* TODO: Use the NewsImage component */}
     </div>
   );
 };
