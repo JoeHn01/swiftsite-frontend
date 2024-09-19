@@ -19,7 +19,8 @@ const signInFields = [
 const signUpFields = [
   { label: 'First Name', type: 'text', id: 'firstName', name: 'firstName', required: true },
   { label: 'Last Name', type: 'text', id: 'lastName', name: 'lastName', required: true },
-  ...signInFields,
+  { label: 'Email', type: 'email', id: 'email', name: 'email', required: true },
+  { label: 'Password', type: 'password', id: 'password', name: 'password', required: true },
   { label: 'Confirm Password', type: 'password', id: 'confirmPassword', name: 'confirmPassword', required: true },
 ];
 
@@ -56,13 +57,13 @@ const AuthForm: React.FC = () => {
       const username = email.split('@')[0];
   
       try {
-        const response = await fetch('http://localhost:3000/users', {
+        const response = await fetch('http://localhost:3000/auth/signup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            username,
+            username: username,
             name: `${firstName} ${lastName}`,
             email,
             password,
@@ -116,7 +117,7 @@ const AuthForm: React.FC = () => {
               )}
             </div>
           ))}
-          <Button variant='primary' className={styles.authButton}>
+          <Button variant='primary' type='submit' className={styles.authButton}>
             {isSignIn ? 'Sign In' : 'Sign Up'}
           </Button>
         </Form>
