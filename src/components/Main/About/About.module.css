@@ -1,25 +1,16 @@
 .about {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
   min-height: 100vh;
   width: 100%;
   background-color: #fff;
 }
 
-.aboutTopContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  text-align: center;
-}
-
 .aboutContent {
   padding: 50px;
-  max-width: 40%;
-}
-
-.whyChooseUs {
-  padding: 30px;
 }
 
 .sectionTitle {
@@ -35,26 +26,7 @@
   color: #555;
 }
 
-.whyChooseUs h3 {
-  font-size: 2em;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.whyChooseUsList {
-  list-style-type: none;
-  padding: 0;
-  margin-bottom: 20px;
-  color: #555;
-}
-
-.whyChooseUsList li {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-}
-
 .aboutTeam {
-  flex: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,7 +47,7 @@
 .teamImage {
   width: 80%;
   height: 80%;
-  border-radius: 100%;
+  border-radius: 50%;
   margin-bottom: 10px;
 }
 
@@ -91,10 +63,6 @@
 }
 
 @media (max-width: 768px) {
-  .aboutTopContainer {
-    flex-direction: column;
-  }
-
   .aboutContent {
     padding: 0;
     max-width: 70%;
@@ -102,5 +70,12 @@
 
   .whyChooseUs {
     padding: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .team {
+    flex-direction: column;
+    margin-bottom: 25px;
   }
 }

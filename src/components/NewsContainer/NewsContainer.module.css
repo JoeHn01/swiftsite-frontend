@@ -1,4 +1,8 @@
 .newsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   max-width: 80%;
   min-height: 100vh;
   margin: 10px auto;

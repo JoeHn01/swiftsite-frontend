@@ -1,8 +1,6 @@
 .imageWrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 100%;
+  max-width: 50%;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -13,4 +11,16 @@
   height: auto;
   border-radius: 8px;
   object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .imageWrapper {
+    max-width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .imageWrapper {
+    max-width: 100%;
+  }
 }
