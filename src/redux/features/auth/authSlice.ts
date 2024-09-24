@@ -10,6 +10,7 @@ interface AuthState {
     password: string;
     confirmPassword: string;
     userName: string;
+    passWord: string;
   };
 }
 
@@ -23,6 +24,7 @@ const initialState: AuthState = {
     password: '',
     confirmPassword: '',
     userName: '',
+    passWord: '',
   },
 };
 

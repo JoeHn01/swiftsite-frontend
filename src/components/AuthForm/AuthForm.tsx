@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { toggleSignIn, togglePasswordVisibility, setFormData } from '../../redux/features/auth/authSlice';
 
 const signInFields = [
-  { label: 'Email', type: 'email', id: 'email', name: 'email', required: true },
+  { label: 'User Name', type: 'text', id: 'userName', name: 'userName', required: true },
   { label: 'Password', type: 'password', id: 'password', name: 'password', required: true },
 ];
 
@@ -20,9 +20,25 @@ const signUpFields = [
   { label: 'First Name', type: 'text', id: 'firstName', name: 'firstName', required: true },
   { label: 'Last Name', type: 'text', id: 'lastName', name: 'lastName', required: true },
   { label: 'Email', type: 'email', id: 'email', name: 'email', required: true },
-  { label: 'Password', type: 'password', id: 'password', name: 'password', required: true },
+  { label: 'Password', type: 'password', id: 'passWord', name: 'passWord', required: true },
   { label: 'Confirm Password', type: 'password', id: 'confirmPassword', name: 'confirmPassword', required: true },
 ];
+
+const signInValidationSchema = Yup.object().shape({
+  userName: Yup.string().required('User Name is required'),
+  password: Yup.string().required('Password is required'),
+});
+
+const signUpValidationSchema = Yup.object().shape({
+  firstName: Yup.string().required('First Name is required'),
+  lastName: Yup.string().required('Last Name is required'),
+  email: Yup.string().email('Invalid email address').required('Email is required'),
+  username: Yup.string().required('User Name is required'),
+  passWord: Yup.string().required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
+    .required('Confirm Password is required'),
+});
 
 const AuthForm: React.FC = () => {
   const router = useRouter();
@@ -30,16 +46,18 @@ const AuthForm: React.FC = () => {
   const { isSignIn, showPassword, formData } = useAppSelector((state) => state.auth);
 
   const initialValues = formData;
+  const validationSchema = isSignIn ? signInValidationSchema : signUpValidationSchema;
 
-  const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required('First Name is required'),
-    lastName: Yup.string().required('Last Name is required'),
-    email: Yup.string().email('Invalid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
-      .required('Confirm Password is required'),
-  });
+  // const validationSchema = Yup.object().shape({
+  //   firstName: Yup.string().required('First Name is required'),
+  //   lastName: Yup.string().required('Last Name is required'),
+  //   email: Yup.string().email('Invalid email address').required('Email is required'),
+  //   userName: Yup.string().required('User Name is requried'),
+  //   password: Yup.string().required('Password is required'),
+  //   confirmPassword: Yup.string()
+  //     .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
+  //     .required('Confirm Password is required'),
+  // });
 
   const handleToggleForm = () => {
     dispatch(toggleSignIn());
