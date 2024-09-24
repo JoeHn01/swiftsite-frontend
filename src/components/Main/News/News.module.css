@@ -107,17 +107,18 @@
 @media (max-width: 640px) {
   .newsItem {
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     max-height: 70%;
   }
 
   .newsImage {
-    max-width: 75%;
+    max-width: 100%;
+    margin: 0;
   }
 
   .newsContent {
-    padding: 15px;
+    padding: 15px 0 15px 0;
     gap: 0;
-    max-width: 75%;
   }
 }
