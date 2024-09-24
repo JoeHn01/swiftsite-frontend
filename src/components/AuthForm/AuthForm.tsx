@@ -3,42 +3,14 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './AuthForm.module.css';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
 import Button from '../Button/Button';
+import AuthInput from './AuthInput/AuthInput';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { toggleSignIn, togglePasswordVisibility, setFormData } from '../../redux/features/auth/authSlice';
+import { signInFields, signUpFields, signInValidationSchema, signUpValidationSchema } from './authFields';
 
-const signInFields = [
-  { label: 'User Name', type: 'text', id: 'userName', name: 'userName', required: true },
-  { label: 'Password', type: 'password', id: 'password', name: 'password', required: true },
-];
-
-const signUpFields = [
-  { label: 'First Name', type: 'text', id: 'firstName', name: 'firstName', required: true },
-  { label: 'Last Name', type: 'text', id: 'lastName', name: 'lastName', required: true },
-  { label: 'Email', type: 'email', id: 'email', name: 'email', required: true },
-  { label: 'Password', type: 'password', id: 'passWord', name: 'passWord', required: true },
-  { label: 'Confirm Password', type: 'password', id: 'confirmPassword', name: 'confirmPassword', required: true },
-];
-
-const signInValidationSchema = Yup.object().shape({
-  userName: Yup.string().required('User Name is required'),
-  password: Yup.string().required('Password is required'),
-});
-
-const signUpValidationSchema = Yup.object().shape({
-  firstName: Yup.string().required('First Name is required'),
-  lastName: Yup.string().required('Last Name is required'),
-  email: Yup.string().email('Invalid email address').required('Email is required'),
-  username: Yup.string().required('User Name is required'),
-  passWord: Yup.string().required('Password is required'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
-    .required('Confirm Password is required'),
-});
 
 const AuthForm: React.FC = () => {
   const router = useRouter();
@@ -48,23 +20,8 @@ const AuthForm: React.FC = () => {
   const initialValues = formData;
   const validationSchema = isSignIn ? signInValidationSchema : signUpValidationSchema;
 
-  // const validationSchema = Yup.object().shape({
-  //   firstName: Yup.string().required('First Name is required'),
-  //   lastName: Yup.string().required('Last Name is required'),
-  //   email: Yup.string().email('Invalid email address').required('Email is required'),
-  //   userName: Yup.string().required('User Name is requried'),
-  //   password: Yup.string().required('Password is required'),
-  //   confirmPassword: Yup.string()
-  //     .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
-  //     .required('Confirm Password is required'),
-  // });
-
   const handleToggleForm = () => {
     dispatch(toggleSignIn());
-  };
-
-  const handleTogglePassword = () => {
-    dispatch(togglePasswordVisibility());
   };
 
   const handleSubmit = async (values: typeof initialValues) => {
@@ -111,29 +68,7 @@ const AuthForm: React.FC = () => {
         <h1 className={styles.authHeading}>{isSignIn ? 'Sign In' : 'Sign Up'}</h1>
         <Form className={styles.authForm}>
           {formFields.map((field) => (
-            <div key={field.id} className={styles.inputContainer}>
-               <Field
-                className={styles.authInput}
-                type={field.type === 'password' && showPassword ? 'text' : field.type}
-                id={field.id}
-                name={field.name}
-                placeholder=""
-              />
-              <label className={styles.authLabel} htmlFor={field.id}>
-                {field.label}
-              </label>
-              <ErrorMessage name={field.name} component="div" className={styles.error} />
-
-              {field.type === 'password' && (
-                <button
-                  type="button"
-                  className={styles.passwordToggle}
-                  onClick={handleTogglePassword}
-                >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </button>
-              )}
-            </div>
+            <AuthInput key={field.id} field={field} />
           ))}
           <Button variant='primary' type='submit' className={styles.authButton}>
             {isSignIn ? 'Sign In' : 'Sign Up'}
