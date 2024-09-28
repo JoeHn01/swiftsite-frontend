@@ -24,66 +24,93 @@ const AuthForm: React.FC = () => {
     dispatch(toggleSignIn());
   };
 
+  const signUp = async (signUpData: typeof formData) => {
+    const { firstName, lastName, email, password } = signUpData;
+    const username = email.split('@')[0];
+    try {
+      const response = await fetch('http://localhost:3000/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          name: `${firstName} ${lastName}`,
+          email,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        const { userToken } = await response.json();
+        const userData = getTokenStatus(userToken);
+        console.log(`User Object: ${userData}`);
+        toast.success('Account Created Successfully!');
+        router.push('/templates');
+      } else {
+        const errorData = await response.json();
+        toast.error(`Error: ${errorData.message}`);
+      }
+    } catch (error) {
+      toast.error('A network error occurred!');
+    }
+  };
+
+  const signIn = async (signInData: typeof formData) => {
+    const { userName, password } = formData;
+
+    try {
+      const response = await fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: userName,
+          password
+        }),
+      });
+
+      if (response.ok) {
+        const { userToken } = await response.json();
+        const userData = getTokenStatus(userToken);
+        console.log(`User Object: ${userData}`);
+        toast.success('Signed In Successfully!');
+        router.push('/templates')
+      } else {
+        const errorData = await response.json();
+        toast.error(`Error: ${errorData.message}`);
+      }
+    } catch(error) {
+      toast.error('A network error occurred!');
+    }
+  };
+
+  const getTokenStatus = async (userToken: string) => {
+    try {
+      const response = await fetch('http://localhost:3000/auth/status', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${userToken}`
+        },
+      });
+      
+      if (response.ok) {
+        const userData = await response.json();
+        console.log(userData);
+      }
+    } catch(error) {
+      toast.error('A network error occured!');
+    }
+  };
+
   const handleSubmit = async (values: typeof initialValues) => {
     dispatch(setFormData(values));
 
     if (!isSignIn) {
-      const { firstName, lastName, email, password } = values;
-      const username = email.split('@')[0];
-  
-      try {
-        const response = await fetch('http://localhost:3000/auth/signup', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: username,
-            name: `${firstName} ${lastName}`,
-            email,
-            password,
-          }),
-        });
-  
-        if (response.ok) {
-          const { userToken } = await response.json();
-          console.log(`User Token: ${userToken}`);
-          toast.success('Account Created Successfully!');
-          router.push('/templates');
-        } else {
-          const errorData = await response.json();
-          toast.error(`Error: ${errorData.message}`);
-        }
-      } catch (error) {
-        toast.error('A network error occurred!');
-      }
+      signUp(values);
     } else {
-      const { userName, password } = values;
-
-      try {
-        const response = await fetch('http://localhost:3000/auth/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: userName,
-            password
-          }),
-        });
-
-        if (response.ok) {
-          const { userToken } = await response.json();
-          console.log(`User Token: ${userToken}`);
-          toast.success('Signed In Successfully!');
-          router.push('/templates')
-        } else {
-          const errorData = await response.json();
-          toast.error(`Error: ${errorData.message}`);
-        }
-      } catch(error) {
-        toast.error('A network error occurred!');
-      }
+      signIn(values);
     }
   };
   
