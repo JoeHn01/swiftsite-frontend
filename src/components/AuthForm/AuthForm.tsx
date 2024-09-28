@@ -46,6 +46,8 @@ const AuthForm: React.FC = () => {
         });
   
         if (response.ok) {
+          const { userToken } = await response.json();
+          console.log(`User Token: ${userToken}`);
           toast.success('Account Created Successfully!');
           router.push('/templates');
         } else {
@@ -56,7 +58,32 @@ const AuthForm: React.FC = () => {
         toast.error('A network error occurred!');
       }
     } else {
-      // Sign in logic
+      const { userName, password } = values;
+
+      try {
+        const response = await fetch('http://localhost:3000/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: userName,
+            password
+          }),
+        });
+
+        if (response.ok) {
+          const { userToken } = await response.json();
+          console.log(`User Token: ${userToken}`);
+          toast.success('Signed In Successfully!');
+          router.push('/templates')
+        } else {
+          const errorData = await response.json();
+          toast.error(`Error: ${errorData.message}`);
+        }
+      } catch(error) {
+        toast.error('A network error occurred!');
+      }
     }
   };
   

@@ -22,9 +22,8 @@ export const signUpValidationSchema = Yup.object().shape({
   firstName: Yup.string().required('First Name is required'),
   lastName: Yup.string().required('Last Name is required'),
   email: Yup.string().email('Invalid email address').required('Email is required'),
-  username: Yup.string().required('User Name is required'),
   passWord: Yup.string().required('Password is required'),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
+    .oneOf([Yup.ref('passWord'), undefined], 'Passwords must match')
     .required('Confirm Password is required'),
 });
