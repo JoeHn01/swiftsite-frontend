@@ -1,16 +1,15 @@
-import React from 'react';
+'use client'
+
+import React, { useState } from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { togglePasswordVisibility } from '../../../redux/features/auth/authSlice';
 import styles from './AuthInput.module.css';
 
 const AuthInput: React.FC<{ field: any }> = ({ field }) => {
-  const dispatch = useAppDispatch();
-  const { showPassword } = useAppSelector((state) => state.auth);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
-    dispatch(togglePasswordVisibility());
+    setShowPassword(!showPassword);
   };
 
   return (

@@ -1,7 +1,6 @@
 'use client'
 
 import styles from "../page.module.css";
-import StoreProvider from "@/components/StoreProvider/StoreProvider";
 import AuthForm from "@/components/AuthForm/AuthForm";
 
 export default function Auth() {

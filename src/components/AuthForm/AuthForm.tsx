@@ -8,14 +8,14 @@ import { Formik, Form } from 'formik';
 import Button from '../Button/Button';
 import AuthInput from './AuthInput/AuthInput';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { toggleSignIn, togglePasswordVisibility, setFormData } from '../../redux/features/auth/authSlice';
+import { toggleSignIn, setFormData } from '../../redux/features/auth/authSlice';
 import { signInFields, signUpFields, signInValidationSchema, signUpValidationSchema } from './authFields';
 
 
 const AuthForm: React.FC = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { isSignIn, showPassword, formData } = useAppSelector((state) => state.auth);
+  const { isSignIn, formData } = useAppSelector((state) => state.auth);
 
   const initialValues = formData;
   const validationSchema = isSignIn ? signInValidationSchema : signUpValidationSchema;
@@ -57,7 +57,7 @@ const AuthForm: React.FC = () => {
   };
 
   const signIn = async (signInData: typeof formData) => {
-    const { userName, password } = formData;
+    const { userName, password } = signInData;
 
     try {
       const response = await fetch('http://localhost:3000/auth/login', {
