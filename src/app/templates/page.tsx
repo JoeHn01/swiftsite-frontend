@@ -16,8 +16,14 @@ type Template = {
   categoryId: string;
 };
 
+type Category = {
+  _id: string;
+  name: string;
+};
+
 export default function Templates() {
   const [templates, setTemplates] = useState<Template[]>([]);
+  const [categories, setCategories] = useState<{ [key: string]: string }>({});
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -35,8 +41,37 @@ export default function Templates() {
         setError(true);
       }
     };
+
     fetchTemplates();
   }, []);
+
+  useEffect(() => {
+    const uniqueCategoryIds = Array.from(new Set(templates.map(template => template.categoryId)));
+
+    const fetchCategoryNames = async () => {
+      const categoryData: { [key: string]: string } = {};
+
+      for (const categoryId of uniqueCategoryIds) {
+        try {
+          const response = await fetch(`http://localhost:3000/categories/${categoryId}`);
+          if (response.ok) {
+            const data: Category = await response.json();
+            categoryData[categoryId] = data.name;
+          } else {
+            toast.error(`Failed to fetch category with id: ${categoryId}`);
+          }
+        } catch (error) {
+          toast.error(`Error fetching category: ${categoryId}`);
+        }
+      }
+
+      setCategories(categoryData);
+    };
+
+    if (templates.length > 0) {
+      fetchCategoryNames();
+    }
+  }, [templates]);
 
   if (error) {
     return <Error statusCode={404} />;
@@ -50,16 +85,16 @@ export default function Templates() {
     );
   }
 
-  const categories = Array.from(new Set(templates.map(template => template.categoryId)));
+  const uniqueCategoryIds = Array.from(new Set(templates.map(template => template.categoryId)));
 
   return (
     <main className={styles.main}>
       <Hero />
-      {categories.map(category => (
+      {uniqueCategoryIds.map(categoryId => (
         <TemplateGrid
-          key={category}
-          title={`${category} Templates`}
-          templates={templates.filter(template => template.categoryId === category)}
+          key={categoryId}
+          title={`${categories[categoryId]} Templates`}
+          templates={templates.filter(template => template.categoryId === categoryId)}
         />
       ))}
     </main>
