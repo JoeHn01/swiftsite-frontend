@@ -1,10 +1,12 @@
-'use client'
+'use client';
 
 import React, { useEffect, useState } from 'react';
+import Error from 'next/error';
 import Hero from "@/components/Templates/Hero/Hero";
 import styles from "../page.module.css";
 import { LiaSpinnerSolid } from "react-icons/lia";
 import TemplateGrid from "@/components/Templates/TemplateGrid/TemplateGrid";
+import toast from 'react-hot-toast';
 
 type Template = {
   _id: string;
@@ -16,42 +18,36 @@ type Template = {
 
 export default function Templates() {
   const [templates, setTemplates] = useState<Template[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchTemplates = async () => {
       try {
         const response = await fetch('http://localhost:3000/templates');
         if (!response.ok) {
-          throw new Error('Failed to fetch templates');
+          setError(true);
+          return;
         }
         const data = await response.json();
         setTemplates(data);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError('An unknown error occurred');
-        }
-      } finally {
-        setLoading(false);
+      } catch {
+        toast.error('A network error occurred!');
+        setError(true);
       }
     };
-
     fetchTemplates();
   }, []);
 
-  if (loading) {
+  if (error) {
+    return <Error statusCode={404} />;
+  }
+
+  if (templates.length === 0) {
     return (
       <div className="spinner-container">
         <LiaSpinnerSolid className="spinner" />
       </div>
     );
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
   }
 
   const categories = Array.from(new Set(templates.map(template => template.categoryId)));

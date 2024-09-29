@@ -17,11 +17,11 @@ interface Template {
 }
 
 const Templates: React.FC = () => {
-  const [templates, setTemplates] = useState<Template[] | null>(null);
+  const [templates, setTemplates] = useState<Template[]>([]);
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
-    async function fetchTemplates() {
+    const fetchTemplates = async () => {
       try {
         const response = await fetch('http://localhost:3000/templates/featured');
         if (!response.ok) {
@@ -30,10 +30,11 @@ const Templates: React.FC = () => {
         }
         const data = await response.json();
         setTemplates(data);
-      } catch (error) {
+      } catch {
         toast.error('A network error occurred!');
+        setError(true);
       }
-    }
+    };
     fetchTemplates();
   }, []);
 
@@ -41,7 +42,7 @@ const Templates: React.FC = () => {
     return <Error statusCode={404} />;
   }
 
-  if (!templates) {
+  if (templates.length === 0) {
     return (
       <div className="spinner-container">
         <LiaSpinnerSolid className="spinner" />
@@ -59,6 +60,6 @@ const Templates: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Templates;
