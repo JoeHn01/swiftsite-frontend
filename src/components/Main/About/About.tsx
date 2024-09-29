@@ -1,13 +1,16 @@
-import React from 'react';
+'use client'
+
+import React, { useState } from 'react';
 import styles from './About.module.css';
-import Link from 'next/link';
 import Button from '@/components/Button/Button';
+import ContactPopup from '@/components/ContactPopup/ContactPopup';
 
 const About: React.FC = () => {
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
   const teamMembers = [
     { name: 'John Doe', title: 'Founder & CEO', image: 'ceo.jpg' },
     { name: 'Jane Smith', title: 'Marketing Director', image: 'md.jpg' },
-
   ];
 
   return (
@@ -29,10 +32,9 @@ const About: React.FC = () => {
             </div>
           ))}
         </div>
-        <Link href="contact">
-          <Button variant='primary'>Contact Us Today</Button>
-        </Link>
+        <Button variant='primary' onClick={() => setPopupOpen(true)}>Contact Us Today</Button>
       </div>
+      <ContactPopup isOpen={isPopupOpen} onClose={() => setPopupOpen(false)} />
     </div>
   );
 };
