@@ -5,10 +5,7 @@ const NewsImage: React.FC = () => {
 
   return (
     <div className={styles.imageWrapper}>
-    <img
-      src='/empty-image.jpg'
-      className={styles.newsImage}
-    />
+      <img src='/empty-image.jpg' className={styles.newsImage} />
     </div>
   );
 };

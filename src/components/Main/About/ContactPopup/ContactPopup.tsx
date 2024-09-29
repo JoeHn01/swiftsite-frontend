@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styles from './ContactPopup.module.css';
 import toast from 'react-hot-toast';
+import Button from '@/components/Button/Button';
 
 interface ContactPopupProps {
   isOpen: boolean;
@@ -47,63 +48,33 @@ const ContactPopup: React.FC<ContactPopupProps> = ({ isOpen, onClose }) => {
         </button>
         <h2 className={styles.title}>Contact Us</h2>
 
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ isSubmitting }) => (
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
             <Form className={styles.form}>
               <div className={styles.formGroup}>
-                <label htmlFor="name" className={styles.label}>
-                  Name
-                </label>
-                <Field
-                  type="text"
-                  name="name"
-                  id="name"
-                  className={styles.input}
-                />
+                <label htmlFor="name" className={styles.label}>Name</label>
+                <Field type="text" name="name" id="name" className={styles.input} />
                 <div className={styles.errorContainer}>
                   <ErrorMessage name="name" component="div" className={styles.error} />
                 </div>
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="email" className={styles.label}>
-                  Email
-                </label>
-                <Field
-                  type="email"
-                  name="email"
-                  id="email"
-                  className={styles.input}
-                />
+                <label htmlFor="email" className={styles.label}>Email</label>
+                <Field type="email" name="email" id="email" className={styles.input} />
                 <div className={styles.errorContainer}>
                   <ErrorMessage name="email" component="div" className={styles.error} />
                 </div>
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="message" className={styles.label}>
-                  Message
-                </label>
-                <Field
-                  as="textarea"
-                  name="message"
-                  id="message"
-                  className={styles.textarea}
-                />
+                <label htmlFor="message" className={styles.label}>Message</label>
+                <Field as="textarea" name="message" id="message" className={styles.textarea} />
                 <div className={styles.errorContainer}>
                   <ErrorMessage name="message" component="div" className={styles.error} />
                 </div>
               </div>
-
-              <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
-                {isSubmitting ? 'Sending...' : 'Send'}
-              </button>
+              <Button variant='primary' type="submit">Send</Button>
             </Form>
-          )}
         </Formik>
       </div>
     </div>

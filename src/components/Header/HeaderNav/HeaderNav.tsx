@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { usePathname } from 'next/navigation';
 import styles from './HeaderNav.module.css';
+import toast from 'react-hot-toast';
 
 interface NavItem {
   label: string;
@@ -31,7 +32,7 @@ const HeaderNav: React.FC = () => {
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: 'smooth' });
     } else {
-      console.warn(`Element with ID '${sectionId}' not found.`);
+      toast.error(`Element with ID '${sectionId}' not found.`);
     }
   };
 

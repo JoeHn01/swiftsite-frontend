@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';  // Import useRouter for navigation
+import { useRouter } from 'next/navigation';
 import styles from './SearchBar.module.css';
 
 interface Template {
@@ -15,7 +15,7 @@ const SearchBar: React.FC = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Template[]>([]);
   const [showResults, setShowResults] = useState(false);
-  const router = useRouter();  // Initialize useRouter
+  const router = useRouter();
 
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -34,10 +34,9 @@ const SearchBar: React.FC = () => {
     }
   };
 
-  // Handle navigation to template page
   const handleResultClick = (id: string) => {
-    router.push(`/templates/${id}`);  // Navigate to template's detail page
-    setShowResults(false);  // Optionally hide the dropdown after navigation
+    router.push(`/templates/${id}`);
+    setShowResults(false);
   };
 
   return (
@@ -49,7 +48,7 @@ const SearchBar: React.FC = () => {
         value={query}
         onChange={handleInputChange}
         onFocus={() => setShowResults(true)}
-        onBlur={() => setTimeout(() => setShowResults(false), 200)} // Delay to allow click on results
+        onBlur={() => setTimeout(() => setShowResults(false), 200)}
       />
       {showResults && (
         <div className={styles.resultsPopup}>
@@ -59,7 +58,7 @@ const SearchBar: React.FC = () => {
                 <li
                   key={template._id}
                   className={styles.resultItem}
-                  onMouseDown={() => handleResultClick(template._id)}  // Use onMouseDown to avoid conflict with onBlur
+                  onMouseDown={() => handleResultClick(template._id)}
                 >
                   {template.name}
                 </li>
