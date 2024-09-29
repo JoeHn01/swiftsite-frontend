@@ -1,55 +1,60 @@
-import React from 'react';
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Button from '@/components/Button/Button';
 import TemplateGrid from '../../Templates/TemplateGrid/TemplateGrid';
 import styles from './Templates.module.css';
+import toast from 'react-hot-toast';
+import { LiaSpinnerSolid } from "react-icons/lia";
+import Error from 'next/error';
 
-const templates = [
-  {
-    id: 1,
-    title: 'Business',
-    description: 'A sleek and professional business template.',
-    image: 'business-template.jpg',
-  },
-  {
-    id: 2,
-    title: 'Portfolio',
-    description: 'Showcase your work with this portfolio template.',
-    image: 'portfolio-template.jpg'
-  },
-  {
-    id: 3,
-    title: 'E-commerce',
-    description: 'An elegant template for your online store.',
-    image: 'ecommerce-template.jpg'
-  },
-  {
-    id: 4,
-    title: 'Restaurant',
-    description: 'A very attractive template for your restaurant.',
-    image: 'restaurant-template.jpg'
-  },
-  {
-    id: 5,
-    title: 'Blog',
-    description: 'A template for your personal or professional blog.',
-    image: 'blog-template.jpg'
-  },
-  {
-    id: 6,
-    title: 'Event',
-    description: 'An engaging template for promoting your events.',
-    image: 'event-template.jpg'
-  }
-];
+interface Template {
+  _id: string;
+  name: string;
+  description: string;
+  image: string;
+}
 
 const Templates: React.FC = () => {
+  const [templates, setTemplates] = useState<Template[] | null>(null);
+  const [error, setError] = useState<boolean>(false);
+
+  useEffect(() => {
+    async function fetchTemplates() {
+      try {
+        const response = await fetch('http://localhost:3000/templates/featured');
+        if (!response.ok) {
+          setError(true);
+          return;
+        }
+        const data = await response.json();
+        setTemplates(data);
+      } catch (error) {
+        toast.error('A network error occurred!');
+      }
+    }
+    fetchTemplates();
+  }, []);
+
+  if (error) {
+    return <Error statusCode={404} />;
+  }
+
+  if (!templates) {
+    return (
+      <div className="spinner-container">
+        <LiaSpinnerSolid className="spinner" />
+      </div>
+    );
+  }
+
   return (
     <div id="templates" className={styles.templates}>
       <TemplateGrid title="Featured Templates" templates={templates} />
       <div className={styles.buttonContainer}>
         <Link href="templates">
-          <Button variant='primary' >Browse All Templates</Button>
+          <Button variant='primary'>Browse All Templates</Button>
         </Link>
       </div>
     </div>

@@ -3,8 +3,8 @@ import Link from 'next/link';
 import styles from './TemplateGrid.module.css';
 
 interface Template {
-  id: number;
-  title: string;
+  _id: string;
+  name: string;
   description: string;
   image: string;
   category?: string;
@@ -21,9 +21,9 @@ const TemplateGrid: React.FC<TemplateGridProps> = ({ title, templates }) => {
       <h2 className={styles.sectionTitle}>{title}</h2>
       <div className={styles.templatesGrid}>
         {templates.map(template => (
-          <Link key={template.id} href={`/templates/${template.id}`} className={styles.templateCard}>
-            <img src={template.image} alt={template.title} className={styles.templateImage} />
-            <h3 className={styles.templateTitle}>{template.title}</h3>
+          <Link key={template._id} href={`/templates/${template._id}`} className={styles.templateCard}>
+            <img src={template.image ? template.image : 'empty-image.jpg'} alt={template.name} className={styles.templateImage} />
+            <h3 className={styles.templateName}>{template.name}</h3>
             <p className={styles.templateDescription}>{template.description}</p>
           </Link>
         ))}
