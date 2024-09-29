@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styles from './About.module.css';
 import Button from '@/components/Button/Button';
-import ContactPopup from '@/components/ContactPopup/ContactPopup';
+import ContactPopup from '@/components/Main/About/ContactPopup/ContactPopup';
 
 const About: React.FC = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);

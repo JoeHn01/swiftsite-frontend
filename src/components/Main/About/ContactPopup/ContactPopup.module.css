@@ -16,7 +16,7 @@
   border-radius: 10px;
   width: 80%;
   max-width: 600px;
-  padding: 30px;
+  padding: 50px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   position: relative;
 }
@@ -56,15 +56,27 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  width: 100%;
+  width: 90%;
   font-size: 1rem;
 }
 
 .textarea {
   resize: vertical;
-  max-height: 300px;
+  max-height: 200px;
   min-height: 100px;
 }
+
+.errorContainer {
+  height: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  color: #ff0000;
+  font-size: 12px;
+  margin: 0;
+}  
 
 .submitButton {
   background-color: #007bff;
