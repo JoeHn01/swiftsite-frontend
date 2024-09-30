@@ -13,12 +13,10 @@ interface CollectionViewProps {
 
 const columnOrderMap: { [key: string]: string[] } = {
   Users: ['_id', 'username', 'email', 'password', 'templateIds', 'createdAt', 'updatedAt'],
-  Templates: ['_id', 'name', 'description', 'categoryId', 'previewImage', 'code', 'featured', 'createdAt', 'updatedAt'],
+  Templates: ['_id', 'name', 'description', 'categoryId', 'userId', 'previewImage', 'code', 'featured', 'createdAt', 'updatedAt'],
   Categories: ['_id', 'name', 'description', 'templateIds', 'createdAt', 'updatedAt'],
   News: ['_id', 'title', 'content', 'authorId', 'category', 'featured', 'createdAt', 'updatedAt'],
 };
-
-const MAX_CONTENT_LENGTH = 50;
 
 const formatDate = (dateString: string) => {
   const options: Intl.DateTimeFormatOptions = {
@@ -88,7 +86,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({
     if (typeof value === 'object' && value !== null) {
       return JSON.stringify(value);
     }
-    if (typeof value === 'string' && value.length > MAX_CONTENT_LENGTH) {
+    if (typeof value === 'string' && value.length > 50) {
       return (
         <div
           onClick={() => {

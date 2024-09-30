@@ -11,7 +11,7 @@ interface NewsItem {
   _id: string;
   title: string;
   content: string;
-  date: string;
+  createdAt: Date;
   image?: string;
 }
 
@@ -56,12 +56,12 @@ export default function News() {
         {news.length === 0 ? (
           <p>No featured news available.</p>
         ) : (
-          news.map((item) => (
+          news.map((item: NewsItem) => (
             <div key={item._id} className={styles.newsItem}>
               <img src={ item.image ? item.image : 'empty-image.jpg' } alt={item.title} className={styles.newsImage} />
               <div className={styles.newsContent}>
                 <h3 className={styles.newsItemTitle}>{item.title}</h3>
-                <p className={styles.newsDate}>{new Date(item.date).toLocaleDateString()}</p>
+                <p className={styles.newsDate}>{item.createdAt.toString().split('T')[0]}</p>
                 <p className={styles.newsContentText}>{item.content}</p>
                 <Link href={`/news/${item._id}`} className={styles.newsLink}>
                   Read More
