@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './CollectionView.module.css';
 import Modal from './Modal/Modal';
+import CreateButton from './CreateButton/CreateButton';
 
 interface DataRow {
   [key: string]: any;
@@ -11,30 +12,7 @@ interface CollectionViewProps {
   rowsPerPage: number;
 }
 
-const columnOrderMap: { [key: string]: string[] } = {
-  Users: ['_id', 'username', 'email', 'password', 'templateIds', 'createdAt', 'updatedAt'],
-  Templates: ['_id', 'name', 'description', 'categoryId', 'userId', 'previewImage', 'code', 'featured', 'createdAt', 'updatedAt'],
-  Categories: ['_id', 'name', 'description', 'templateIds', 'createdAt', 'updatedAt'],
-  News: ['_id', 'title', 'content', 'authorId', 'category', 'featured', 'createdAt', 'updatedAt'],
-};
-
-const formatDate = (dateString: string) => {
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  };
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', options);
-};
-
-const CollectionView: React.FC<CollectionViewProps> = ({
-  collectionName,
-  rowsPerPage,
-}) => {
+const CollectionView: React.FC<CollectionViewProps> = ({ collectionName, rowsPerPage }) => {
   const [data, setData] = useState<DataRow[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -62,8 +40,28 @@ const CollectionView: React.FC<CollectionViewProps> = ({
     loadData();
   }, [collectionName]);
 
-  const totalPages = Math.ceil(data.length / rowsPerPage);
+  const handleCreate = async (formData: { [key: string]: any }) => {
+    try {
+      const response = await fetch(`http://localhost:3000/${collectionName}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
+      if (!response.ok) {
+        throw new Error(`Failed to create entry in ${collectionName}`);
+      }
+
+      const createdDocument = await response.json();
+      console.log('Created document:', createdDocument);
+    } catch (error) {
+      console.error('Error creating entry:', error);
+    }
+  };
+
+  const totalPages = Math.ceil(data.length / rowsPerPage);
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -74,36 +72,15 @@ const CollectionView: React.FC<CollectionViewProps> = ({
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const displayColumns = columnOrderMap[collectionName] || [];
-
-  const renderCellValue = (value: any, key: string) => {
-    if (key === 'createdAt' || key === 'updatedAt') {
-      return formatDate(value);
-    }
-    if (typeof value === 'boolean') {
-      return value ? 'True' : 'False';
-    }
-    if (typeof value === 'object' && value !== null) {
-      return JSON.stringify(value);
-    }
-    if (typeof value === 'string' && value.length > 50) {
-      return (
-        <div
-          onClick={() => {
-            setModalContent(value);
-            setIsModalOpen(true);
-          }}
-          className={styles.viewMore}
-        >
-          View More
-        </div>
-      );
-    }
-    return value !== undefined && value !== null ? value : 'N/A';
-  };
+  const displayColumns = data.length > 0 ? Object.keys(data[0]) : [];
 
   return (
     <div>
+      <CreateButton 
+        collectionName={collectionName} 
+        columns={displayColumns}
+        onCreate={handleCreate}
+      />
       <div className={styles.tableWrapper}>
         <table className={styles.table}>
           <thead>
@@ -120,7 +97,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({
               <tr key={rowIndex}>
                 {displayColumns.map((key) => (
                   <td key={key} className={styles.tableCell}>
-                    {renderCellValue(row[key], key)}
+                    {row[key]}
                   </td>
                 ))}
               </tr>
