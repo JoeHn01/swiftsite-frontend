@@ -23,3 +23,8 @@ body {
       transform: rotate(360deg);
   }
 }
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
