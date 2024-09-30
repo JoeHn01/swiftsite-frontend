@@ -1,5 +1,5 @@
 .main {
-  flex-grow: 1;
+  width: 80%;
   padding: 20px;
   background-color: #ecf0f1;
 }

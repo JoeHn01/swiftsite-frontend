@@ -1,4 +1,5 @@
 import styles from './Main.module.css';
+import CollectionView from './CollectionView/CollectionView';
 
 interface MainSectionProps {
   selectedCollection: string;
@@ -9,7 +10,7 @@ const Main: React.FC<MainSectionProps> = ({ selectedCollection }) => {
     <div className={styles.main}>
       <h1>{selectedCollection} Collection</h1>
       <div className={styles.content}>
-        <p>Currently viewing: {selectedCollection}</p>
+        <CollectionView collectionName={selectedCollection} rowsPerPage={5} />
       </div>
     </div>
   );
