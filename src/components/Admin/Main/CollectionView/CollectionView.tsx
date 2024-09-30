@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './CollectionView.module.css';
+import Modal from './Modal/Modal';
 
 interface DataRow {
   [key: string]: any;
@@ -10,6 +11,28 @@ interface CollectionViewProps {
   rowsPerPage: number;
 }
 
+const columnOrderMap: { [key: string]: string[] } = {
+  Users: ['_id', 'username', 'email', 'password', 'templateIds', 'createdAt', 'updatedAt'],
+  Templates: ['_id', 'name', 'description', 'categoryId', 'previewImage', 'code', 'featured', 'createdAt', 'updatedAt'],
+  Categories: ['_id', 'name', 'description', 'templateIds', 'createdAt', 'updatedAt'],
+  News: ['_id', 'title', 'content', 'authorId', 'category', 'featured', 'createdAt', 'updatedAt'],
+};
+
+const MAX_CONTENT_LENGTH = 50;
+
+const formatDate = (dateString: string) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  };
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', options);
+};
+
 const CollectionView: React.FC<CollectionViewProps> = ({
   collectionName,
   rowsPerPage,
@@ -18,6 +41,8 @@ const CollectionView: React.FC<CollectionViewProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [modalContent, setModalContent] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -51,21 +76,36 @@ const CollectionView: React.FC<CollectionViewProps> = ({
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const displayColumns = data.length > 0 ? Object.keys(data[0]) : [];
+  const displayColumns = columnOrderMap[collectionName] || [];
 
-  const renderCellValue = (value: any) => {
+  const renderCellValue = (value: any, key: string) => {
+    if (key === 'createdAt' || key === 'updatedAt') {
+      return formatDate(value);
+    }
     if (typeof value === 'boolean') {
       return value ? 'True' : 'False';
     }
     if (typeof value === 'object' && value !== null) {
       return JSON.stringify(value);
     }
+    if (typeof value === 'string' && value.length > MAX_CONTENT_LENGTH) {
+      return (
+        <div
+          onClick={() => {
+            setModalContent(value);
+            setIsModalOpen(true);
+          }}
+          className={styles.viewMore}
+        >
+          View More
+        </div>
+      );
+    }
     return value !== undefined && value !== null ? value : 'N/A';
   };
 
   return (
     <div>
-      <h2>{collectionName} Collection</h2>
       <div className={styles.tableWrapper}>
         <table className={styles.table}>
           <thead>
@@ -82,7 +122,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({
               <tr key={rowIndex}>
                 {displayColumns.map((key) => (
                   <td key={key} className={styles.tableCell}>
-                    {renderCellValue(row[key])}
+                    {renderCellValue(row[key], key)}
                   </td>
                 ))}
               </tr>
@@ -101,6 +141,11 @@ const CollectionView: React.FC<CollectionViewProps> = ({
           </button>
         ))}
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        content={modalContent}
+      />
     </div>
   );
 };

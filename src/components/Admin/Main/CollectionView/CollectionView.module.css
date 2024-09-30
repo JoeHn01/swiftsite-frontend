@@ -43,3 +43,15 @@
 .active {
   background-color: #3b4b65;
 }
+
+.viewMore {
+  background-color: transparent;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.viewMore:hover {
+  cursor: pointer;
+}

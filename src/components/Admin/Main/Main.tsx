@@ -10,7 +10,7 @@ const Main: React.FC<MainSectionProps> = ({ selectedCollection }) => {
     <div className={styles.main}>
       <h1>{selectedCollection} Collection</h1>
       <div className={styles.content}>
-        <CollectionView collectionName={selectedCollection} rowsPerPage={5} />
+        <CollectionView collectionName={selectedCollection} rowsPerPage={10} />
       </div>
     </div>
   );
