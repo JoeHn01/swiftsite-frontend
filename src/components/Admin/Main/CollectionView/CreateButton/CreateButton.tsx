@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import Button from '@/components/Button/Button';
 import Modal from '../Modal/Modal';
+import styles from './CreateButton.module.css';
 
 interface CreateButtonProps {
   collectionName: string;
   columns: string[];
   onCreate: (formData: { [key: string]: any }) => void;
 }
+
+const excludedFields = ['_id', 'createdAt', 'updatedAt', '__v', 'templateIds', 'categoryId'];
 
 const CreateButton: React.FC<CreateButtonProps> = ({ collectionName, columns, onCreate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,8 +19,11 @@ const CreateButton: React.FC<CreateButtonProps> = ({ collectionName, columns, on
   const closeModal = () => setIsModalOpen(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    const { name, type, checked, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -27,34 +33,66 @@ const CreateButton: React.FC<CreateButtonProps> = ({ collectionName, columns, on
     setFormData({});
   };
 
+  const filteredColumns = columns.filter((column) => {
+    return !excludedFields.includes(column);
+  });
+
   return (
-    <div>
+    <div className={styles.createButtonContainer}>
       <Button variant="primary" onClick={openModal}>
         Create
       </Button>
 
-      <Modal isOpen={isModalOpen} onClose={closeModal} content={
-        <div>
-          <h2>Create New {collectionName} Entry</h2>
-          <form onSubmit={handleSubmit}>
-            {columns.map((column) => (
-              <div key={column}>
-                <label htmlFor={column}>{column}</label>
-                <input
-                  type="text"
-                  name={column}
-                  id={column}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            ))}
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </form>
-        </div>
-      } />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        content={
+          <div className={styles.formContainer}>
+            <h2 className={styles.formTitle}>Create New {collectionName} Entry</h2>
+            <form onSubmit={handleSubmit}>
+              {filteredColumns.map((column, index) => (
+                <div key={column}>
+                  <label className={styles.formLabel} htmlFor={column}>{column}</label>
+                  {column === 'featured' ? (
+                    <input
+                      className={styles.formInput}
+                      type="checkbox"
+                      name={column}
+                      id={column}
+                      onChange={handleChange}
+                    />
+                  ) : (
+                    <input
+                      className={styles.formInput}
+                      type="text"
+                      name={column}
+                      id={column}
+                      onChange={handleChange}
+                      required
+                    />
+                  )}
+                  {column === 'userId' && collectionName.toLowerCase() === 'templates' && (
+                    <div>
+                      <label className={styles.formLabel} htmlFor="categoryName">Category Name</label>
+                      <input
+                        className={styles.formInput}
+                        type="text"
+                        name="categoryName"
+                        id="categoryName"
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  )}
+                </div>
+              ))}
+              <Button className={styles.submitButton} variant="primary" type="submit">
+                Submit
+              </Button>
+            </form>
+          </div>
+        }
+      />
     </div>
   );
 };

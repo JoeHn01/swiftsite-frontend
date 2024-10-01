@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,12 +12,11 @@
 }
 
 .modalContent {
-  background: white;
+  background-color: #fff;
   border-radius: 8px;
-  padding: 20px;
-  max-width: 600px;
-  width: 100%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: fit-content;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   position: relative;
 }
 
@@ -25,26 +24,64 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  border: none;
   background: transparent;
+  border: none;
   font-size: 1.5rem;
+  color: #333;
   cursor: pointer;
+  transition: color 0.2s;
 }
 
-.content {
-  margin-top: 10px;
+.closeButton:hover {
+  color: #ff5c5c;
 }
 
-.okButton {
-  margin-top: 20px;
-  padding: 10px 15px;
+.mainContent {
+  margin-top: 40px;
+}
+
+.cellView {
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+}
+
+.createForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.createForm input,
+.createForm select,
+.createForm textarea {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.createForm input:focus,
+.createForm select:focus,
+.createForm textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.createForm button {
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.okButton:hover {
+.createForm button:hover {
   background-color: #0056b3;
 }

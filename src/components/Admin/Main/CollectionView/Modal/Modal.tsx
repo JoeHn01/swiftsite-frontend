@@ -10,11 +10,15 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, content }) => {
   if (!isOpen) return null;
 
+  const isCellView = typeof content === 'string';
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <button onClick={onClose}>Close</button>
-        {content}
+        <button className={styles.closeButton} onClick={onClose}>×</button>
+        <div className={`${styles.mainContent} ${isCellView ? styles.cellView : styles.createForm}`}>
+          {content}
+        </div>
       </div>
     </div>
   );
