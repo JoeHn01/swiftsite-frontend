@@ -15,7 +15,7 @@ interface NewsItem {
   image?: string;
 }
 
-export default function News() {
+const News: React.FC = () => {
   const [news, setNews] = useState<NewsItem[] | null>(null);
   const [error, setError] = useState<boolean>(false);
 
@@ -74,3 +74,5 @@ export default function News() {
     </div>
   );
 }
+
+export default News;

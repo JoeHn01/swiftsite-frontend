@@ -50,7 +50,7 @@ const CreateButton: React.FC<CreateButtonProps> = ({ collectionName, columns, on
           <div className={styles.formContainer}>
             <h2 className={styles.formTitle}>Create New {collectionName} Entry</h2>
             <form onSubmit={handleSubmit}>
-              {filteredColumns.map((column, index) => (
+              {filteredColumns.map((column) => (
                 <div key={column}>
                   <label className={styles.formLabel} htmlFor={column}>{column}</label>
                   {column === 'featured' ? (
@@ -71,9 +71,9 @@ const CreateButton: React.FC<CreateButtonProps> = ({ collectionName, columns, on
                       required
                     />
                   )}
-                  {column === 'userId' && collectionName.toLowerCase() === 'templates' && (
+                  {column === 'description' && collectionName.toLowerCase() === 'templates' && (
                     <div>
-                      <label className={styles.formLabel} htmlFor="categoryName">Category Name</label>
+                      <label className={styles.formLabel} htmlFor="categoryName">categoryName</label>
                       <input
                         className={styles.formInput}
                         type="text"
