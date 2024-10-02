@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { LiaSpinnerSolid } from "react-icons/lia";
 import styles from './CollectionView.module.css';
-import Modal from './Modal/Modal';
 import CreateButton from './CreateButton/CreateButton';
 import toast from 'react-hot-toast';
+import RowView from './RowView/RowView';
 
 interface DataRow {
   [key: string]: any;
@@ -64,10 +64,8 @@ const CollectionView: React.FC<CollectionViewProps> = ({ collectionName, rowsPer
       }
 
       const createdDocument = await response.json();
-      console.log(createdDocument);
       toast.success('Created document successfully!');
       loadData();
-
     } catch (error) {
       toast.error(`Error creating document: ${error}`);
     }
@@ -75,20 +73,17 @@ const CollectionView: React.FC<CollectionViewProps> = ({ collectionName, rowsPer
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    
     const formattedDate = date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     });
-  
     const formattedTime = date.toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
       hour12: true,
     });
-  
     return `${formattedDate} at ${formattedTime}`;
   };
 
@@ -107,7 +102,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ collectionName, rowsPer
       </div>
     );
   }
-  
+
   if (error) {
     return <p>Error: {error}</p>;
   }
@@ -119,38 +114,20 @@ const CollectionView: React.FC<CollectionViewProps> = ({ collectionName, rowsPer
       return (
         <div>
           {value.length > 3 ? (
-            <>
-              {value.slice(0, 3).join(', ')}...{' '}
-              <span
-                onClick={() => {
-                  setModalContent(value.join(', '));
-                  setIsModalOpen(true);
-                }}
-                className={styles.viewMore}
-              >
-                View More
-              </span>
-            </>
+            <div className={styles.cellText}>
+              {value.slice(0, 3).join(', ')}...
+            </div>
           ) : (
             value.join(', ')
           )}
         </div>
       );
     }
-    if (typeof value === 'string' && value.length > 50) {
+    if (typeof value === 'string' && value.length > 30) {
       return (
         <>
           <div className={styles.cellText}>
             {value.slice(0, 20)}...
-          </div>
-          <div
-            onClick={() => {
-              setModalContent(value);
-              setIsModalOpen(true);
-            }}
-            className={styles.viewMore}
-          >
-            View More
           </div>
         </>
       );
@@ -166,7 +143,12 @@ const CollectionView: React.FC<CollectionViewProps> = ({ collectionName, rowsPer
     }
     return value !== undefined && value !== null ? value : 'N/A';
   };
-  
+
+  const handleRowClick = (row: DataRow) => {
+    setModalContent(row);
+    setIsModalOpen(true);
+  };
+
   return (
     <div>
       <CreateButton 
@@ -187,7 +169,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ collectionName, rowsPer
           </thead>
           <tbody>
             {currentRows.map((row, rowIndex) => (
-              <tr key={rowIndex}>
+              <tr key={rowIndex} onClick={() => handleRowClick(row)} className={styles.tableRow}>
                 {displayColumns.map((key) => (
                   <td key={key} className={styles.tableCell}>
                     {renderCellValue(row[key], key)}
@@ -209,7 +191,7 @@ const CollectionView: React.FC<CollectionViewProps> = ({ collectionName, rowsPer
           </button>
         ))}
       </div>
-      <Modal
+      <RowView
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         content={modalContent}
