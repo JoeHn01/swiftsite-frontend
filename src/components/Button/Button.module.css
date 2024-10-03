@@ -42,3 +42,18 @@
   background-color: #d6d6d6;
   color: #212529;
 }
+
+.danger {
+  background-color: transparent;
+  border: 2px solid #dc3545;
+}
+
+.danger:hover {
+  background-color: #f8d7da;
+  color: #dc3545;
+}
+
+.danger:active {
+  background-color: #d6d6d6;
+  color: #212529;
+}

@@ -195,6 +195,8 @@ const CollectionView: React.FC<CollectionViewProps> = ({ collectionName, rowsPer
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         content={modalContent}
+        collectionName={collectionName}
+        reloadData={loadData}
       />
     </div>
   );
