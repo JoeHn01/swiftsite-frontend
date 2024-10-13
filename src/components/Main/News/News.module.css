@@ -13,7 +13,6 @@
 .newsContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   gap: 10px;
   margin-bottom: 30px;
@@ -21,12 +20,12 @@
 
 .newsItem {
   display: flex;
+  position: relative;
   background-color: #fff;
   border: 1px solid #ddd;
   padding: 15px;
   border-radius: 8px;
   max-height: 30%;
-  width: 95%;
 }
 
 .newsImage {
